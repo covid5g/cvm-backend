@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "./dist/WebService.js",
+  "main": "./build/bin/WebService.js",
   "type": "module",
   "dependencies": {
     "@hapi/hapi": "^18.4.1",
