@@ -10,7 +10,7 @@
     "module": "ESNext"
   },
   "include": [
-    "./WebService.ts",
+    "./bin/WebService.ts",
     "./src/"
   ],
   "exclude": [
