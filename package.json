@@ -32,7 +32,7 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn sv:start",
+    "exec": "yarn sv:run",
     "ext": "ts"
   },
   "scripts": {
