@@ -1,11 +1,11 @@
-import Action from '../Core/Route/Action'
 import { Route } from '../Core/Route/Decorator/Route'
+import IAction from '../Core/Route/IAction'
 
 @Route('hello_world', {
     method: 'GET',
     path: '/'
 })
-class HelloWorldAction extends Action {
+class HelloWorldAction implements IAction {
     execute(req, res): object {
         return {
             error: null,
