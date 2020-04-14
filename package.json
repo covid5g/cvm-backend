@@ -22,19 +22,6 @@
       "node13"
     ]
   },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "yarn sv:run",
-    "ext": "ts"
-  },
   "scripts": {
     "make:js": "tsc -p tsconfig.json",
     "make:pkg": "yarn make:js && pkg ./package.json",
