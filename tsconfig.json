@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "./build/",
     "strictNullChecks": false,
     "sourceMap": true,
