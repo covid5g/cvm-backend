@@ -34,7 +34,7 @@ export default class Application {
     }
 
     _registerServices() {
-        Container.register('routeManager', this.#_routeManager)
+        Container.register('route_manager', this.#_routeManager)
         Container.register('kernel', this.#_app)
     }
 
