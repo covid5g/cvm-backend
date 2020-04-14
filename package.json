@@ -1,9 +1,9 @@
 {
   "name": "cvm-backend",
   "version": "1.0.0",
-  "description": "Backend for HackTheVirus hackathon",
+  "description": "",
   "private": true,
-  "main": "./build/WebService.js",
+  "main": "./dist/WebService.js",
   "dependencies": {
     "@hapi/hapi": "^18.4.1",
     "request": "^2.88.2",
