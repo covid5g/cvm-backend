@@ -1,4 +1,4 @@
-import { Server } from 'hapi'
+import { Server } from '@hapi/hapi'
 
 import config from '../webservice.config'
 import RouteManager from './Core/Route/RouteManager'

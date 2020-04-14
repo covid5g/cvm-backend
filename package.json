@@ -4,7 +4,6 @@
   "description": "",
   "private": true,
   "main": "./build/bin/WebService.js",
-  "type": "module",
   "dependencies": {
     "@hapi/hapi": "^18.4.1",
     "request": "^2.88.2"
