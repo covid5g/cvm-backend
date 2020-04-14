@@ -1,0 +1,44 @@
+{
+  "name": "cvm-backend",
+  "version": "1.0.0",
+  "description": "Backend for HackTheVirus hackathon",
+  "private": true,
+  "main": "./build/WebService.js",
+  "dependencies": {
+    "@hapi/hapi": "^18.4.1",
+    "request": "^2.88.2",
+    "unzip": "^0.1.11"
+  },
+  "devDependencies": {
+    "@types/hapi": "^18.0.3",
+    "@types/node": "^13.11.1",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "pkg": {
+    "targets": [
+      "node13"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "yarn sv:start",
+    "ext": "ts"
+  },
+  "scripts": {
+    "make:js": "tsc -p tsconfig.json",
+    "make:pkg": "yarn make:js && pkg ./package.json",
+    "sv:start": "node --inspect=5858 -r ts-node/register ./bin/WebService.ts",
+    "sv:dev": "nodemon",
+    "dev": "yarn sv:dev"
+  }
+}

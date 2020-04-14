@@ -1,0 +1,17 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./build/",
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "target": "es2020"
+  },
+  "include": [
+    "./WebService.ts",
+    "./src/"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
