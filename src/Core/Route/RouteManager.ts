@@ -1,6 +1,9 @@
 import { Request, ResponseObject, Server } from 'hapi'
 import IRoute from './IRoute'
 
+import { readdirSync } from 'fs'
+import Container from '../Container/Container'
+
 type RouteInfo = {
     [name: string]: IRoute
 }
@@ -12,6 +15,15 @@ export default class RouteManager {
     constructor(app: Server) {
         this.#_app = app
         this.#routes = {}
+
+        this._forceActionsLoad()
+    }
+
+    _forceActionsLoad() {
+        const { KERNEL_DIR } = Container.get('config')
+        readdirSync(`${ KERNEL_DIR }/Action`)
+            .filter(fn => fn.endsWith('Action.ts'))
+            .forEach(action => import(action))
     }
 
     registerRoute(name: string, action: any, routeInfo: IRoute): void {

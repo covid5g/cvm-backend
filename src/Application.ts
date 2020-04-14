@@ -18,6 +18,10 @@ export default class Application {
     }
 
     constructor() {
+        Container.register('config', {
+            KERNEL_DIR: __dirname
+        })
+
         this.#_app = new Server({
             host: config.HTTP_HOST,
             port: config.HTTP_PORT,
