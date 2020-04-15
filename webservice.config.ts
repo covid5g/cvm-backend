@@ -1,6 +1,6 @@
 const config = {
     HTTP_HOST: 'localhost',
-    HTTP_PORT: process.env.PORT || 3000,
+    HTTP_PORT: process.env.PORT || 3001,
     URLENCODED_EXTENDED: true
 }
 

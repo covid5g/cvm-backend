@@ -1,21 +1,15 @@
-import { Route } from '../Core/Route/Decorator/Route'
-import IAction from '../Core/Route/IAction'
+import Action from "../Core/Route/Action"
 
-@Route('hello_world', {
-    method: 'GET',
-    path: '/'
-})
-class HelloWorldAction implements IAction {
+export default new class HelloWorldAction extends Action {
     execute(req, res): object {
         return {
             error: null,
-            message: 'Hello, World!'
+            message: "Hello, World!",
         }
     }
 
     options(): object {
         return {}
     }
-}
 
-export default HelloWorldAction
+}

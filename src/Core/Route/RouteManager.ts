@@ -1,44 +1,48 @@
-import { Request, ResponseObject, Server } from 'hapi'
-import IRoute from './IRoute'
-
-import { readdirSync } from 'fs'
-import Container from '../Container/Container'
-
-type RouteInfo = {
-    [name: string]: IRoute
-}
+import {Request, ResponseObject} from "hapi"
+import server from "@hapi/hapi"
+import {routes} from "../../../config/routes"
+import Route from "./Entity/Route"
 
 export default class RouteManager {
-    #_app: Server
-    #routes: RouteInfo
+    app: server
+    routes: object
 
-    constructor(app: Server) {
-        this.#_app = app
-        this.#routes = {}
+    constructor(app: server) {
+        this.app = app
 
-        this._forceActionsLoad()
+        this.loadRoutes()
+        this.initRoutes()
     }
 
-    _forceActionsLoad() {
-        const { KERNEL_DIR } = Container.get('config')
-        readdirSync(`${ KERNEL_DIR }/Action`)
-            .filter(fn => fn.endsWith('Action.ts'))
-            .forEach(action => import(action))
+    private loadRoutes(): void {
+        this.routes = routes
     }
 
-    registerRoute(name: string, action: any, routeInfo: IRoute): void {
-        const _act = new action()
+    private initRoutes(): void {
+        for (let key in this.routes) {
+            if (!this.routes.hasOwnProperty(key)) {
+                continue
+            }
 
-        this.#_app.route({
-            method: routeInfo.method,
-            path: routeInfo.path,
-            options: _act.options(),
+            const route = this.routes[key]
+
+            this.registerRoute(route.method, route)
+        }
+    }
+
+    private registerRoute(method: string, route: Route): void {
+        const action = route.action
+
+        this.app.route({
+            method,
+            path: route.path,
+            options: action.options(),
             handler: (request: Request, h: ResponseObject) => {
                 const when = new Date().toISOString()
-                console.log(`[${ when }] ${ request.method.toUpperCase() } ${ request.path }`)
+                console.debug(`[${when}] ${request.method.toUpperCase()} ${request.path}`)
 
-                return _act.execute(request, h)
-            }
+                return action.execute(request, h)
+            },
         })
     }
 }
