@@ -18,7 +18,11 @@ export function makeFindBy(findBy: Array<DbQueryCondition>) {
         }
 
         _conditions.push(`${ column } ${ QB_CONDITIONS[_condName.pop()] } ?`)
-        params.push(value)
+        if (DbQueryConditionType.LIKE === condition) {
+            params.push(`%${ value }%`)
+        } else {
+            params.push(value)
+        }
     })
 
     return {

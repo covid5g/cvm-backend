@@ -1,7 +1,7 @@
-import Action from '../Core/Route/Action'
+import Action from '../../Core/Route/Action'
 
-export default new class AuthTestAction extends Action {
-    execute(req, res): object {
+export default new class PositionAction extends Action {
+    async execute(req, res) {
         return {
             err: false,
             res: {

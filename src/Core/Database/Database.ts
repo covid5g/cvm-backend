@@ -9,7 +9,8 @@ export const QB_CONDITIONS = {
     LTE: '<=',
     GT: '>',
     GTE: '>=',
-    INTERVAL: 'BETWEEN'
+    INTERVAL: 'BETWEEN',
+    LIKE: 'LIKE'
 }
 
 export enum DbQueryConditionType {
@@ -20,6 +21,7 @@ export enum DbQueryConditionType {
     GT,
     GTE,
     INTERVAL,
+    LIKE,
 }
 
 export type DbQueryCondition = {

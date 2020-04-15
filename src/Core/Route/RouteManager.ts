@@ -19,15 +19,14 @@ export default class RouteManager {
     }
 
     private initRoutes(): void {
-        for (let key in this.routes) {
-            if (!this.routes.hasOwnProperty(key)) {
-                continue
-            }
+        Object.keys(this.routes).forEach(route => {
+            console.log('[Entanglement.Core.Route.RouteManager] Registering route', route, this.routes[route])
 
-            const route = this.routes[key]
-
-            this.registerRoute(route.method, route)
-        }
+            this.registerRoute(
+                this.routes[route].method,
+                this.routes[route]
+            )
+        })
     }
 
     private registerRoute(method: string, route: Route): void {
@@ -39,7 +38,7 @@ export default class RouteManager {
             options: action.options(),
             handler: async (request: Request, h: ResponseToolkit) => {
                 const when = new Date().toISOString()
-                console.debug(`[${ when }] ${ request.method.toUpperCase() } ${ request.path }`)
+                console.log(`[${ when }] ${ request.method.toUpperCase() } ${ request.path }`)
 
                 try {
                     return await action.execute(request, h)
