@@ -1,5 +1,5 @@
-import LatLng from "./LatLng"
-import {normalizeLng} from "../../Util/Geometry"
+import LatLng from './LatLng'
+import { normalizeLng } from '../../Util/Geometry'
 
 export default class LatLngBounds {
     ne: LatLng | null = null

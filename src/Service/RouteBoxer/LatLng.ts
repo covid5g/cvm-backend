@@ -1,4 +1,4 @@
-import {EARTH_RADIUS, phi, toBrng, toDeg, toRad} from "../../Util/Geometry"
+import { EARTH_RADIUS, phi, toBrng, toDeg, toRad } from '../../Util/Geometry'
 
 export default class LatLng {
     lat: number

@@ -23,16 +23,16 @@ export default new class DbTestAction extends Action {
             )
 
             console.debug('>>> Trying to execute test: SELECT * FROM `user`')
-            return await Database.execute('SELECT * FROM `user`')
+            return await Database.getCollection('user')
         } catch (err) {
             console.debug('>>> Query error: SELECT * FROM `user`', err)
             return err
         }
-
-        return { error: true, message: 'jesus is watching you' }
     }
 
     options(): object {
-        return {}
+        return {
+            auth: false
+        }
     }
 }

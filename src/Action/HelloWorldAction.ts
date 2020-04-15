@@ -9,6 +9,8 @@ export default new class HelloWorldAction extends Action {
     }
 
     options(): object {
-        return {}
+        return {
+            auth: false
+        }
     }
 }

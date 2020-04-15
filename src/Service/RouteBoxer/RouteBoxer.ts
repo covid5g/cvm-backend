@@ -1,6 +1,6 @@
-import LatLng from "./LatLng"
-import LatLngBounds from "./LatLngBounds"
-import {EARTH_RADIUS, toRad} from "../../Util/Geometry"
+import LatLng from './LatLng'
+import LatLngBounds from './LatLngBounds'
+import { EARTH_RADIUS, toRad } from '../../Util/Geometry'
 
 export default class RouteBoxer {
     /**
@@ -85,13 +85,13 @@ export default class RouteBoxer {
             this._latGrid.push(routeBoundsCenter.rhumbDestinationLatLng(0, range * i).lat)
         }
 
-        // Add lines from the center out to the south  
+        // Add lines from the center out to the south
         for (let i = 1; this._latGrid[1] > routeBounds.sw.lat; i++) {
             this._latGrid.unshift(routeBoundsCenter.rhumbDestinationLatLng(180, range * i).lat)
         }
 
         // Starting from the center define grid lines outwards horizontally until they
-        //  extend beyond the edge of the bounding box by more than one cell  
+        //  extend beyond the edge of the bounding box by more than one cell
         this._lonGrid.push(routeBoundsCenter.lon)
 
         // Add lines from the center out to the east
@@ -175,7 +175,7 @@ export default class RouteBoxer {
                     // This cell is marked for inclusion. If the previous cell in this
                     //   row was also marked for inclusion, merge this cell into it's box.
                     // Otherwise start a new box.
-                    box = this.getCellBounds([x, y])
+                    box = this.getCellBounds([ x, y ])
 
                     if (currentBox) {
                         currentBox.extend(box.ne)
@@ -204,10 +204,10 @@ export default class RouteBoxer {
                     //   column was also marked for inclusion, merge this cell into it's box.
                     // Otherwise start a new box.
                     if (currentBox) {
-                        box = this.getCellBounds([x, y])
+                        box = this.getCellBounds([ x, y ])
                         currentBox.extend(box.ne)
                     } else {
-                        currentBox = this.getCellBounds([x, y])
+                        currentBox = this.getCellBounds([ x, y ])
                     }
                 } else {
                     // This cell is not marked for inclusion. If the previous cell was
@@ -242,7 +242,7 @@ export default class RouteBoxer {
             cy = y
         }
 
-        return [cx, cy]
+        return [ cx, cy ]
     }
 
     /**
@@ -275,7 +275,7 @@ export default class RouteBoxer {
             }
         }
 
-        return [x, y]
+        return [ x, y ]
     }
 
     /**
@@ -381,11 +381,11 @@ export default class RouteBoxer {
 
         if (startx < endx) {
             for (x = startx; x <= endx; x++) {
-                this.markCell([x, y])
+                this.markCell([ x, y ])
             }
         } else {
             for (x = startx; x >= endx; x--) {
-                this.markCell([x, y])
+                this.markCell([ x, y ])
             }
         }
     }

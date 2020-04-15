@@ -56,7 +56,7 @@ export default class Database {
         })
     }
 
-    execute(query: string, params: Array<any>): Promise<any> {
+    execute(query: string, params: Array<any> = []): Promise<any> {
         console.debug('[Database] Preparing query', query, params)
 
         const result = this.#connection.query(query, params)
@@ -91,5 +91,39 @@ export default class Database {
                 ...qb.findBy.params
             ]
         )
+    }
+
+    getCollection(entity: string, findBy: Array<DbQueryCondition> = []) {
+        const { prepared, params } = makeFindBy(findBy)
+
+        if (findBy.length === 0) {
+            return this.execute(`SELECT * FROM \`${ entity }\``)
+        }
+
+        return this.execute(
+            `SELECT * FROM \`${ entity }\` WHERE ${ prepared }`,
+            params
+        )
+    }
+
+    async getEntity(entity: string, findBy: Array<DbQueryCondition>) {
+        const collection = await this.getCollection(entity, findBy)
+
+        if (collection.length === 0) {
+            return null
+        }
+
+        return collection.pop()
+    }
+
+    async count(entity: string, findBy: Array<DbQueryCondition>) {
+        const { prepared, params } = makeFindBy(findBy)
+
+        const result = await this.execute(
+            `SELECT COUNT(id) AS _c FROM \`${ entity }\` WHERE ${ prepared }`,
+            params
+        )
+
+        return result[0]._c
     }
 }

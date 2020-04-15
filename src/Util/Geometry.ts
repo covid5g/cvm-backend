@@ -65,7 +65,7 @@ const normalizeLng = (lng: number): number => {
 export const EARTH_RADIUS = 6378//137 // in KM
 
 // Geodesic functions
-export {toRad, toDeg, toBrng, phi, fmod}
+export { toRad, toDeg, toBrng, phi, fmod }
 
 // other utilities
-export {normalizeLat, normalizeLng}
+export { normalizeLat, normalizeLng }

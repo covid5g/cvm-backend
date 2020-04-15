@@ -1,7 +1,7 @@
-import {Request, ResponseObject} from "hapi"
-import server from "@hapi/hapi"
-import {routes} from "../../../config/routes"
-import Route from "./Entity/Route"
+import { Request, ResponseToolkit } from 'hapi'
+import server from '@hapi/hapi'
+import { routes } from '../../../config/routes'
+import Route from './Entity/Route'
 
 export default class RouteManager {
     app: server
@@ -37,12 +37,19 @@ export default class RouteManager {
             method,
             path: route.path,
             options: action.options(),
-            handler: (request: Request, h: ResponseObject) => {
+            handler: async (request: Request, h: ResponseToolkit) => {
                 const when = new Date().toISOString()
-                console.debug(`[${when}] ${request.method.toUpperCase()} ${request.path}`)
+                console.debug(`[${ when }] ${ request.method.toUpperCase() } ${ request.path }`)
 
-                return action.execute(request, h)
-            },
+                try {
+                    return await action.execute(request, h)
+                } catch (e) {
+                    return {
+                        err: true,
+                        res: e.message
+                    }
+                }
+            }
         })
     }
 }
