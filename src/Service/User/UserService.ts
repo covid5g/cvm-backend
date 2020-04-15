@@ -6,7 +6,7 @@ import IUserForm from './IUserForm'
 
 const T = {
     E_ALREADY_EXISTS: 'Exista deja un cont inregistrat cu aceasta adresa de e-mail.',
-    E_NOT_FOUND: 'Nu s-a gasit niciun cont cu adresa de e-mail mentionata.'
+    E_NOT_FOUND: 'Adresa de e-mail sau parola este gresita.'
 }
 
 export default class UserService {
