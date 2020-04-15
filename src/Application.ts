@@ -3,7 +3,8 @@ import { Server } from '@hapi/hapi'
 import config from '../webservice.config'
 import RouteManager from './Core/Route/RouteManager'
 import Container from './Core/Container/Container'
-
+import * as DotEnv from 'dotenv'
+import Database from './Core/Database/Database'
 
 export default class Application {
     #_app: Server
@@ -18,6 +19,8 @@ export default class Application {
     }
 
     constructor() {
+        DotEnv.config()
+
         Container.register('config', {
             KERNEL_DIR: __dirname
         })
@@ -38,8 +41,9 @@ export default class Application {
     }
 
     _registerServices() {
-        Container.register('route_manager', this.#_routeManager)
         Container.register('kernel', this.#_app)
+        Container.register('route_manager', this.#_routeManager)
+        Container.register('database', new Database())
     }
 
     get app(): Server {
