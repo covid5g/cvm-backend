@@ -37,13 +37,13 @@ export default class UserService {
                 throw new Error(T.E_NOT_FOUND)
             }
 
-            // User check OK, return it
-            return { email }
+            return {
+                id: user.id,
+                email: user.email
+            }
         } catch (e) {
             throw e
         }
-
-        // TODO maybe this should return inserted user? Not for now tho.
     }
 
     async register(userInfo: IUserForm) {
@@ -76,21 +76,27 @@ export default class UserService {
     }
 
     async validate(request: any, session: any) {
-        const user = await this.#database.getEntity(
-            'user',
-            [
-                { column: 'email', value: session.email }
-            ]
-        )
+        const user = await this.get(session.email)
 
         if (!user) {
             return { valid: false }
         }
 
         return {
-            valid: true, credentials: {
+            valid: true,
+            credentials: {
+                id: user.id,
                 email: user.email
             }
         }
+    }
+
+    async get(email: string) {
+        return await this.#database.getEntity(
+            'user',
+            [
+                { column: 'email', value: email }
+            ]
+        )
     }
 }

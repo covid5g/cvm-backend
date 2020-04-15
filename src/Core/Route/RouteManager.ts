@@ -43,6 +43,8 @@ export default class RouteManager {
                 try {
                     return await action.execute(request, h)
                 } catch (e) {
+                    console.log(`[${ when }] ${ request.method.toUpperCase() } ${ request.path }`, e)
+
                     return {
                         err: true,
                         res: e.message

@@ -3,7 +3,8 @@ import DbTestAction from '../src/Action/DbTestAction'
 import RegisterAction from '../src/Action/User/RegisterAction'
 import LoginAction from '../src/Action/User/LoginAction'
 import PositionAction from '../src/Action/User/PositionAction'
-import GetAction from '../src/Action/Position/GetAction'
+import PositionGetAction from '../src/Action/Position/PositionGetAction'
+import UserGetAction from '../src/Action/User/UserGetAction'
 
 const routes = {
     '__MAIN__': {
@@ -33,8 +34,13 @@ const routes = {
     },
     'ws.position.get': {
         path: '/position/get',
-        action: GetAction,
+        action: PositionGetAction,
         method: 'POST'
+    },
+    'ws.user.get': {
+        path: '/user/get',
+        action: UserGetAction,
+        method: 'GET'
     }
 }
 

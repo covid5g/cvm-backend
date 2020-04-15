@@ -6,20 +6,13 @@ export default new class LoginAction extends Action {
     async execute(req, res) {
         const userService = new UserService()
 
-        try {
-            const user = await userService.login(req.payload)
+        const user = await userService.login(req.payload)
 
-            req.cookieAuth.set(user)
+        req.cookieAuth.set(user)
 
-            return {
-                err: false,
-                res: user
-            }
-        } catch (e) {
-            return {
-                err: true,
-                res: e.message
-            }
+        return {
+            err: false,
+            res: user
         }
     }
 

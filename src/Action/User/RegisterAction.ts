@@ -6,18 +6,11 @@ export default new class RegisterAction extends Action {
     async execute(req, res) {
         const userService = new UserService()
 
-        try {
-            await userService.register(req.payload)
+        await userService.register(req.payload)
 
-            return {
-                err: false,
-                res: userService.exists(req.payload.email)
-            }
-        } catch (e) {
-            return {
-                err: true,
-                res: e.message
-            }
+        return {
+            err: false,
+            res: userService.exists(req.payload.email)
         }
     }
 
