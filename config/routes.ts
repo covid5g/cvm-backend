@@ -1,20 +1,14 @@
 import HelloWorldAction from '../src/Action/HelloWorldAction'
-import DbTestAction from '../src/Action/DbTestAction'
 import RegisterAction from '../src/Action/User/RegisterAction'
 import LoginAction from '../src/Action/User/LoginAction'
 import PositionAction from '../src/Action/User/PositionAction'
-import PositionGetAction from '../src/Action/Position/PositionGetAction'
 import UserGetAction from '../src/Action/User/UserGetAction'
+import ListingAction from '../src/Action/Position/ListingAction'
 
 const routes = {
     '__MAIN__': {
         path: '/',
         action: HelloWorldAction,
-        method: 'GET'
-    },
-    'ws.test.db': {
-        path: '/test/db',
-        action: DbTestAction,
         method: 'GET'
     },
     'ws.user.register': {
@@ -32,15 +26,15 @@ const routes = {
         action: PositionAction,
         method: 'PUT'
     },
-    'ws.position.get': {
-        path: '/position/get',
-        action: PositionGetAction,
-        method: 'POST'
-    },
     'ws.user.get': {
         path: '/user/get',
         action: UserGetAction,
         method: 'GET'
+    },
+    'ws.position.listing': {
+        path: '/position',
+        action: ListingAction,
+        method: 'POST'
     }
 }
 

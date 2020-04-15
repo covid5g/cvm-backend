@@ -37,12 +37,8 @@ export default class Application {
             }
         })
 
-        this.#_routeManager = new RouteManager(this.app)
-    }
-
-    _registerServices() {
         Container.register('kernel', this.#_app)
-        Container.register('route_manager', this.#_routeManager)
+        Container.register('route_manager', new RouteManager(), 'initRoutes')
     }
 
     _initAuth() {
@@ -65,15 +61,10 @@ export default class Application {
         return this.#_app
     }
 
-    get routeManager(): RouteManager {
-        return this.#_routeManager
-    }
-
     async boot() {
         try {
             await this.#_app.register(require('@hapi/cookie'))
 
-            this._registerServices()
             this._initAuth()
 
             await this.app.start()

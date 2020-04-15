@@ -78,6 +78,8 @@ export default class UserService {
     async validate(request: any, session: any) {
         const user = await this.get(session.email)
 
+        console.debug(user)
+
         if (!user) {
             return { valid: false }
         }

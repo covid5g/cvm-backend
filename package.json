@@ -32,6 +32,7 @@
   "scripts": {
     "make:js": "tsc -p tsconfig.json",
     "make:pkg": "yarn make:js && pkg ./package.json",
+    "make:clean": "npx rimraf build/*",
     "sv:run": "yarn make:js && nodemon",
     "sv:start": "node --inspect=5858 -r ts-node/register ./bin/WebService.ts",
     "sv:dev": "nodemon",

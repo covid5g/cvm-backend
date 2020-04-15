@@ -1,11 +1,11 @@
 import Action from '../../Core/Route/Action'
 import * as Joi from '@hapi/joi'
 
-export default new class PositionAction extends Action {
+export default new class ListingAction extends Action {
     async execute(req, res) {
         return {
             err: false,
-            res: 'PositionUpdate OK'
+            res: 'ListingAction OK'
         }
     }
 

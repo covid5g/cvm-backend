@@ -1,8 +1,7 @@
-import { Request } from '@hapi/hapi'
-import { ResponseToolkit } from 'hapi'
+import { Request, ResponseObject } from '@hapi/hapi'
 
 export default abstract class Action {
     abstract options(): object
 
-    abstract execute(req: Request, res: ResponseToolkit): void
+    abstract execute(req: Request, res: ResponseObject): void
 }
