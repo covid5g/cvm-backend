@@ -1,6 +1,6 @@
 import Database from '../../Core/Database/Database'
 import Container from '../../Core/Container/Container'
-import { v4 as uuid4 } from 'uuid'
+import {v4 as uuid4} from 'uuid'
 import IPositionForm from './IPositionForm'
 
 const T = {
@@ -16,12 +16,14 @@ export default class LocationService {
     }
 
     async insert(positionInfo: IPositionForm) {
-        const { latitude, longitude } = positionInfo
-        const id = uuid4()
+        const {latitude, longitude} = positionInfo;
+        const id = uuid4();
+        // @ts-ignore
+        const isSuspect = positionInfo.isSuspect ? 1 : 0;
 
         try {
             await this.#database.execute(
-                `INSERT INTO location (id, location) VALUES ('${ id }', Point(${ latitude }, ${ longitude }))`
+                `INSERT INTO location (id, location, isSuspect) VALUES ('${id}', Point(${latitude}, ${longitude}), ${isSuspect})`
             )
         } catch (e) {
             throw e
@@ -33,17 +35,18 @@ export default class LocationService {
             `SELECT
                       ST_X(location) AS latitude,
                       ST_Y(location) AS longitude,
+                      is_suspect,
                        (
                         6371 * acos (
-                          cos ( radians(${ position.latitude }) )
+                          cos ( radians(${position.latitude}) )
                           * cos( radians( ST_X(location) ) )
-                          * cos( radians( ST_Y(location ) ) - radians(${ position.longitude }) )
-                          + sin ( radians(${ position.latitude }) )
+                          * cos( radians( ST_Y(location ) ) - radians(${position.longitude}) )
+                          + sin ( radians(${position.latitude}) )
                           * sin( radians( ST_X(location )) )
                         )
                       ) AS \`distance\`
                     FROM location
-                    HAVING distance < ${ searchRange }
+                    HAVING distance < ${searchRange}
                     ORDER BY distance;`
         )
     }

@@ -25,6 +25,7 @@ export default new class PositionAction extends Action {
         return {
             validate: {
                 payload: Joi.object({
+                    isSuspect: Joi.boolean().required(),
                     latitude: Joi.number().required(),
                     longitude: Joi.number().required()
                 }).options({stripUnknown: true})
