@@ -1,6 +1,6 @@
-import { createConnection } from 'promise-mysql'
-import { v4 as uuid4 } from 'uuid'
-import { makeData, makeFindBy } from './QueryBuilder'
+import {createConnection} from 'promise-mysql'
+import {v4 as uuid4} from 'uuid'
+import {makeData, makeFindBy} from './QueryBuilder'
 
 export const QB_CONDITIONS = {
     EQ: '=',
@@ -41,9 +41,9 @@ export default class Database {
     }
 
     private async makeConnection() {
-        const { DB_HOST, DB_USER, DB_PASS, DB_NAME } = process.env
+        const {DB_HOST, DB_USER, DB_PASS, DB_NAME} = process.env
 
-        console.debug('[Database] Initializing MySQL Connection', { DB_HOST, DB_USER, DB_PASS, DB_NAME })
+        console.debug('[Database] Initializing MySQL Connection', {DB_HOST, DB_USER, DB_PASS, DB_NAME})
 
         createConnection({
             host: DB_HOST,
@@ -59,10 +59,10 @@ export default class Database {
     }
 
     execute(query: string, params: Array<any> = []): Promise<any> {
-        console.debug('[Database] Preparing query', query, params)
+        console.debug('[Database] Preparing query', query, params);
 
-        const result = this.#connection.query(query, params)
-        console.debug('[Database] Raw result', result)
+        const result = this.#connection.query(query, params);
+        console.debug('[Database] Raw result', result);
 
         return result
     }
@@ -70,12 +70,12 @@ export default class Database {
     insert(entity: string, data: object) {
         const id = uuid4()
 
-        const { prepared, params } = makeData(data, { id })
+        const {prepared, params} = makeData(data, {id})
 
         console.debug(prepared, params)
 
         return this.execute(
-            `INSERT INTO ${ entity } SET ${ prepared }`,
+            `INSERT INTO ${entity} SET ${prepared}`,
             params
         )
     }
@@ -87,7 +87,7 @@ export default class Database {
         }
 
         return this.execute(
-            `UPDATE ${ entity } SET ${ qb.data.prepared } WHERE ${ qb.findBy.prepared }`,
+            `UPDATE ${entity} SET ${qb.data.prepared} WHERE ${qb.findBy.prepared}`,
             [
                 ...qb.data.params,
                 ...qb.findBy.params
@@ -96,14 +96,14 @@ export default class Database {
     }
 
     getCollection(entity: string, findBy: Array<DbQueryCondition> = []) {
-        const { prepared, params } = makeFindBy(findBy)
+        const {prepared, params} = makeFindBy(findBy)
 
         if (findBy.length === 0) {
-            return this.execute(`SELECT * FROM \`${ entity }\``)
+            return this.execute(`SELECT * FROM \`${entity}\``)
         }
 
         return this.execute(
-            `SELECT * FROM \`${ entity }\` WHERE ${ prepared }`,
+            `SELECT * FROM \`${entity}\` WHERE ${prepared}`,
             params
         )
     }
@@ -119,10 +119,10 @@ export default class Database {
     }
 
     async count(entity: string, findBy: Array<DbQueryCondition>) {
-        const { prepared, params } = makeFindBy(findBy)
+        const {prepared, params} = makeFindBy(findBy)
 
         const result = await this.execute(
-            `SELECT COUNT(id) AS _c FROM \`${ entity }\` WHERE ${ prepared }`,
+            `SELECT COUNT(id) AS _c FROM \`${entity}\` WHERE ${prepared}`,
             params
         )
 

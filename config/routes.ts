@@ -1,9 +1,10 @@
 import HelloWorldAction from '../src/Action/HelloWorldAction'
 import RegisterAction from '../src/Action/User/RegisterAction'
 import LoginAction from '../src/Action/User/LoginAction'
-import PositionAction from '../src/Action/User/PositionAction'
+import PositionAction from '../src/Action/Position/PositionAction'
 import UserGetAction from '../src/Action/User/UserGetAction'
 import ListingAction from '../src/Action/Position/ListingAction'
+import GetBusyLocationsAction from "../src/Action/Position/GetBusyLocationsAction";
 
 const routes = {
     '__MAIN__': {
@@ -31,11 +32,16 @@ const routes = {
         action: UserGetAction,
         method: 'GET'
     },
-    'ws.position.listing': {
-        path: '/position',
+    'ws.user.listing': {
+        path: '/user/position/nearby',
         action: ListingAction,
         method: 'POST'
+    },
+    'ws.user.get.busy.points': {
+        path: '/user/positions/check/busy',
+        action: GetBusyLocationsAction,
+        method: 'POST'
     }
-}
+};
 
 export { routes }

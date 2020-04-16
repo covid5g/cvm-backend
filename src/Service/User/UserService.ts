@@ -47,7 +47,7 @@ export default class UserService {
     }
 
     async register(userInfo: IUserForm) {
-        const { email, password } = userInfo
+        const { email, password } = userInfo;
 
         if (await this.exists(email)) {
             throw new Error(T.E_ALREADY_EXISTS)
@@ -70,7 +70,7 @@ export default class UserService {
         const count = await this.#database.count(
             'user',
             [ { column: 'email', value: email } ]
-        )
+        );
 
         return count > 0
     }
