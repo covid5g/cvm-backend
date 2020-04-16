@@ -23,7 +23,7 @@ export default class LocationService {
 
         try {
             await this.#database.execute(
-                `INSERT INTO location (id, location, isSuspect) VALUES ('${id}', Point(${latitude}, ${longitude}), ${isSuspect})`
+                `INSERT INTO location (id, location, is_suspect) VALUES ('${id}', Point(${latitude}, ${longitude}), ${isSuspect})`
             )
         } catch (e) {
             throw e
