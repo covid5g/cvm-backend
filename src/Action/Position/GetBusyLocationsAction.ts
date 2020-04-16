@@ -13,7 +13,8 @@ export default new class GetBusyLocationsAction extends Action {
         try {
             let result = [];
             let point;
-            for (point of req.payload) {
+            for (const point of req.payload) {
+                console.log(point);
                 const foundUsers = await locationService.get(point);
                 const numberOfUsersInProximity = foundUsers.length;
 
@@ -23,20 +24,18 @@ export default new class GetBusyLocationsAction extends Action {
                         'crowded' :
                         (numberOfUsersInProximity >= busyLocationNumbers['some']
                         && numberOfUsersInProximity <= busyLocationNumbers['crowded'] ? 'some' : 'ok')
-                })
+                });
             }
 
-            await locationService.insert(req.payload);
+            return {
+                err: false,
+                res: result
+            }
         } catch (error) {
             return {
                 err: true,
                 res: error
             }
-        }
-
-        return {
-            err: false,
-            res: 'PositionUpdate OK'
         }
     }
 
