@@ -1,6 +1,6 @@
-import {createConnection} from 'promise-mysql'
-import {v4 as uuid4} from 'uuid'
-import {makeData, makeFindBy} from './QueryBuilder'
+import { createConnection } from 'promise-mysql'
+import { v4 as uuid4 } from 'uuid'
+import { makeData, makeFindBy } from './QueryBuilder'
 
 export const QB_CONDITIONS = {
     EQ: '=',
@@ -32,18 +32,19 @@ export type DbQueryCondition = {
 
 export default class Database {
     #connection
-    #connected
 
     constructor() {
-        this.#connected = false
-
         this.makeConnection()
     }
 
-    private async makeConnection() {
-        const {DB_HOST, DB_USER, DB_PASS, DB_NAME} = process.env
+    set connection(connection) {
+        this.#connection = connection
+    }
 
-        console.debug('[Database] Initializing MySQL Connection', {DB_HOST, DB_USER, DB_PASS, DB_NAME})
+    private async makeConnection() {
+        const { DB_HOST, DB_USER, DB_PASS, DB_NAME } = process.env
+
+        console.debug('[Database] Initializing MySQL Connection', { DB_HOST, DB_USER, DB_PASS, DB_NAME })
 
         createConnection({
             host: DB_HOST,
@@ -53,8 +54,7 @@ export default class Database {
         }).then((connection) => {
             console.debug('[Database] Established MySQL Connection!')
 
-            this.#connection = connection
-            this.#connected = true
+            this.connection = connection
         })
     }
 

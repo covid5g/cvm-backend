@@ -1,30 +1,27 @@
 import Database from '../../Core/Database/Database'
 import Container from '../../Core/Container/Container'
-import {v4 as uuid4} from 'uuid'
-
-import {hash, verify} from 'argon2'
-import IUserForm from './IUserForm'
-import IPositionForm from "./IPositionForm";
+import { v4 as uuid4 } from 'uuid'
+import IPositionForm from './IPositionForm'
 
 const T = {
     E_ALREADY_EXISTS: 'Exista deja un cont inregistrat cu aceasta adresa de e-mail.',
     E_NOT_FOUND: 'Adresa de e-mail sau parola este gresita.'
-};
+}
 
 export default class LocationService {
-    #database: Database;
+    #database: Database
 
     constructor() {
         this.#database = Container.get('database')
     }
 
     async insert(positionInfo: IPositionForm) {
-        const {latitude, longitude} = positionInfo;
-        const id = uuid4();
+        const { latitude, longitude } = positionInfo
+        const id = uuid4()
 
         try {
             await this.#database.execute(
-                `INSERT INTO location (id, location) VALUES ('${id}', Point(${latitude}, ${longitude}))`
+                `INSERT INTO location (id, location) VALUES ('${ id }', Point(${ latitude }, ${ longitude }))`
             )
         } catch (e) {
             throw e
@@ -38,15 +35,15 @@ export default class LocationService {
                       ST_Y(location) AS longitude,
                        (
                         6371 * acos (
-                          cos ( radians(${position.latitude}) )
+                          cos ( radians(${ position.latitude }) )
                           * cos( radians( ST_X(location) ) )
-                          * cos( radians( ST_Y(location ) ) - radians(${position.longitude}) )
-                          + sin ( radians(${position.latitude}) )
+                          * cos( radians( ST_Y(location ) ) - radians(${ position.longitude }) )
+                          + sin ( radians(${ position.latitude }) )
                           * sin( radians( ST_X(location )) )
                         )
                       ) AS \`distance\`
                     FROM location
-                    HAVING distance < ${searchRange}
+                    HAVING distance < ${ searchRange }
                     ORDER BY distance;`
         )
     }
